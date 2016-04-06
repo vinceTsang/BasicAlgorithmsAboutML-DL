@@ -207,9 +207,11 @@ def sgd_optimization_mnist(learning_rate=0.13, n_epochs=1000,
     test_set_x, test_set_y = datasets[2]
 
     # compute number of minibatches for training, validation and testing
+    # double slash means 'int division', result just take the integral part
+    # want to get the rounded result, use 'round()'
     n_train_batches = train_set_x.get_value(borrow=True).shape[0] //batch_size
-    n_valid_batches = valid_set_x.get_value(borrow=True).shape[0]
-    n_test_batches = test_set_x.get_value(borrow=True).shape[0]
+    n_valid_batches = valid_set_x.get_value(borrow=True).shape[0] //batch_size
+    n_test_batches = test_set_x.get_value(borrow=True).shape[0] //batch_size
 
     ######################
     # BUILD ACTUAL MODEL #
@@ -276,7 +278,7 @@ def sgd_optimization_mnist(learning_rate=0.13, n_epochs=1000,
     ###############
     # TRAIN MODEL #
     ###############
-    print('...training the model')
+    print('... training the model')
     # early-stopping parameters
     patience = 5000  # look as this many examples regardless
     patience_increase = 2  # wait this much longer when a new best is found
@@ -314,7 +316,7 @@ def sgd_optimization_mnist(learning_rate=0.13, n_epochs=1000,
                 # if we got the best validation score until now
                 if this_validation_loss < best_validation_loss:
                     # improve patience if loss improvement is good enough
-                    if this_validation_loss < best_validation * \
+                    if this_validation_loss < best_validation_loss * \
                         improvement_threshold:
                         patience = max(patience, iter * patience_increase)
 
