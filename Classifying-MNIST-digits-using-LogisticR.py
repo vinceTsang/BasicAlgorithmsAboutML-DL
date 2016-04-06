@@ -372,7 +372,7 @@ def predict():
     )
 
     # We can test in on some examples from test
-    dateset='minist.pkl.gz'
+    dataset='mnist.pkl.gz'
     datasets = load_data(dataset)
     test_set_x, test_set_y = datasets[2]
     test_set_x = test_set_x.get_value()
@@ -382,4 +382,5 @@ def predict():
     print(predicted_values)
 
 if __name__ == '__main__':
-    sgd_optimization_mnist()
+    #sgd_optimization_mnist()
+    predict()
