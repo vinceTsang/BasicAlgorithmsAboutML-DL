@@ -21,6 +21,15 @@ vector whose i`th element is P(Y=i|x).
 This tutorial presents a stochastic gradient descent optimization method
 suitable for large datasets.
 """
+########   matplotlib       ########
+###### use matplotlib to draw ######
+###### the picture. shold     ######
+###### install Tkinter first  ######
+###### while using python 2.6 ######
+###### make sure the version  ######
+###### of numpy is not higher ######
+###### than 1.10.4            ######
+
 
 from  __future__ import print_function
 __docformat__ = 'restructedtext en'
@@ -32,6 +41,7 @@ import timeit
 import numpy
 import theano
 import theano.tensor as T
+import matplotlib.pyplot as plt
 
 class LogisticRegression(object):
     """Multi-class Logistic Regression Class"""
@@ -377,7 +387,17 @@ def predict():
     test_set_x, test_set_y = datasets[2]
     test_set_x = test_set_x.get_value()
 
-    predicted_values = predict_model(test_set_x[:10])
+    # show the image before predict
+    first_10 = test_set_x[:10];
+    for i in range(0,10):
+        im = numpy.array(first_10[i])
+        im = im.reshape(28,28)
+        fig = plt.figure()
+        plotwindow = fig.add_subplot(111)
+        plt.imshow(im, cmap='gray')
+        plt.show()
+
+    predicted_values = predict_model(first_10)
     print("Predicted values for the first 10 examples in test set:")
     print(predicted_values)
 
