@@ -1,3 +1,4 @@
+#coding:utf-8
 """
 This tutorial introduces logistic regression using Theano and stochastic
 gradient descent.
@@ -100,6 +101,13 @@ class LogisticRegression(object):
         # number of examples (call it n) in the minibatch
         # T.arange(y.shape[0]) is a symbolic vector which will contain
         # [0,1,2,... n-1]
+        '''
+        代价函数NLL
+        因为我们是MSGD，每次训练一个batch，一个batch有n_example个样本，则y大小是(n_example,),
+        y.shape[0]得出行数即样本数，将T.log(self.p_y_given_x)简记为LP，
+        则LP[T.arange(y.shape[0]),y]得到[LP[0,y[0]], LP[1,y[1]], LP[2,y[2]], ...,LP[n-1,y[n-1]]]
+        最后求均值mean，也就是说，minibatch的SGD，是计算出batch里所有样本的NLL的平均值，作为它的cost
+        '''
         return -T.mean(T.log(self.p_y_given_x)[T.arange(y.shape[0]),y])
         # end-snippet-2
     
